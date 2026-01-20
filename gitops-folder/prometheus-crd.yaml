@@ -1,0 +1,147 @@
+# prometheus-crds.yaml
+# Install Prometheus Operator CRDs required for kube-prometheus-stack v58.2.0
+
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: alertmanagers.monitoring.coreos.com
+spec:
+  group: monitoring.coreos.com
+  names:
+    kind: Alertmanager
+    plural: alertmanagers
+    singular: alertmanager
+  scope: Namespaced
+  versions:
+    - name: v1
+      served: true
+      storage: true
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: alertmanagerconfigs.monitoring.coreos.com
+spec:
+  group: monitoring.coreos.com
+  names:
+    kind: AlertmanagerConfig
+    plural: alertmanagerconfigs
+    singular: alertmanagerconfig
+  scope: Namespaced
+  versions:
+    - name: v1
+      served: true
+      storage: true
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: podmonitors.monitoring.coreos.com
+spec:
+  group: monitoring.coreos.com
+  names:
+    kind: PodMonitor
+    plural: podmonitors
+    singular: podmonitor
+  scope: Namespaced
+  versions:
+    - name: v1
+      served: true
+      storage: true
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: probes.monitoring.coreos.com
+spec:
+  group: monitoring.coreos.com
+  names:
+    kind: Probe
+    plural: probes
+    singular: probe
+  scope: Namespaced
+  versions:
+    - name: v1
+      served: true
+      storage: true
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: prometheuses.monitoring.coreos.com
+spec:
+  group: monitoring.coreos.com
+  names:
+    kind: Prometheus
+    plural: prometheuses
+    singular: prometheus
+  scope: Namespaced
+  versions:
+    - name: v1
+      served: true
+      storage: true
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: prometheusagents.monitoring.coreos.com
+spec:
+  group: monitoring.coreos.com
+  names:
+    kind: PrometheusAgent
+    plural: prometheusagents
+    singular: prometheusagent
+  scope: Namespaced
+  versions:
+    - name: v1
+      served: true
+      storage: true
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: prometheusrules.monitoring.coreos.com
+spec:
+  group: monitoring.coreos.com
+  names:
+    kind: PrometheusRule
+    plural: prometheusrules
+    singular: prometheusrule
+  scope: Namespaced
+  versions:
+    - name: v1
+      served: true
+      storage: true
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: servicemonitors.monitoring.coreos.com
+spec:
+  group: monitoring.coreos.com
+  names:
+    kind: ServiceMonitor
+    plural: servicemonitors
+    singular: servicemonitor
+  scope: Namespaced
+  versions:
+    - name: v1
+      served: true
+      storage: true
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: thanosrulers.monitoring.coreos.com
+spec:
+  group: monitoring.coreos.com
+  names:
+    kind: ThanosRuler
+    plural: thanosrulers
+    singular: thanosruler
+  scope: Namespaced
+  versions:
+    - name: v1
+      served: true
+      storage: true
+
