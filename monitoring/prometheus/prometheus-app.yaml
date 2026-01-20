@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/os271989/gitops-argocd.git
+    repoURL: https://github.com/os271989/kodecloud.git
     targetRevision: main
     path: monitoring/prometheus
     helm:
