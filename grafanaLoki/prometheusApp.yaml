@@ -1,4 +1,3 @@
-# prometheus-minikube-app.yaml
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
@@ -13,7 +12,15 @@ spec:
     helm:
       values: |
         prometheusOperator:
-          createCustomResource: false  # DO NOT create CRDs via Helm
+          createCustomResource: false
+
+        prometheus:
+          enabled: true
+          prometheusSpec:
+            replicas: 1
+            retention: 7d
+            storageSpec: {}   # ✅ THIS IS THE CRITICAL FIX
+
         grafana:
           enabled: true
           service:
@@ -23,33 +30,29 @@ spec:
               type: loki
               access: proxy
               url: http://loki.monitoring.svc.cluster.local:3100
-              isDefault: false
-        prometheus:
-          prometheusSpec:
-            replicas: 1
-            retention: 7d
-            storage:
-              volumeClaimTemplate: null
-            retention: 7d
+
         nodeExporter:
           enabled: true
+
+        kubeStateMetrics:
+          enabled: true
+
         thanosRuler:
-          enabled: false  # not needed in Minikube
-        prometheusAgent:
-          enabled: false  # optional for Minikube
+          enabled: false
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
   syncPolicy:
-    syncOptions:
-    - ServerSideApply=true
     automated:
       prune: true
       selfHeal: true
   ignoreDifferences:
-    # Ignore CRD annotations to prevent "Too long" errors
     - group: apiextensions.k8s.io
       kind: CustomResourceDefinition
       jsonPointers:
         - /metadata/annotations
+    - group: apiextensions.k8s.io
+      kind: CustomResourceDefinition
+      jqPathExpressions:
+        - .
 
