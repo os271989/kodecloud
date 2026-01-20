@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/os271989/kodecloud.git
     targetRevision: main
-    path: monitoring/prometheus
+    path: gitops-folder/monitoring/prometheus
     helm:
       valueFiles:
         - prometheus-values.yaml
