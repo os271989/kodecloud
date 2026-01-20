@@ -9,9 +9,8 @@ spec:
     repoURL: https://github.com/os271989/kodecloud.git
     targetRevision: main
     path: gitops-folder/monitoring/prometheus
-    helm:
-      valueFiles:
-        - prometheus-values.yaml
+    directory:
+      recurse: true
   destination:
     server: https://kubernetes.default.svc
     namespace: monitoring
