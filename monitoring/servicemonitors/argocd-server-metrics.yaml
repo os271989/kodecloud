@@ -1,18 +1,18 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: argocd-notifications-controller
+  name: argocd-server-metrics
   namespace: monitoring
   labels:
     release: prometheus
 spec:
   selector:
     matchLabels:
-      app.kubernetes.io/name: argocd-notifications-controller-metrics
+      app.kubernetes.io/name: argocd-server-metrics
   namespaceSelector:
     matchNames:
       - argocd
   endpoints:
-    - port: metrics    # must match the name in the Service spec
+    - port: metrics
       interval: 30s
 

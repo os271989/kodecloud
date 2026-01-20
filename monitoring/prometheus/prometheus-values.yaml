@@ -1,0 +1,18 @@
+grafana:
+  enabled: true
+  additionalDataSources:
+    - name: Loki
+      type: loki
+      access: proxy
+      url: http://loki.monitoring.svc.cluster.local:3100
+      isDefault: false
+prometheus:
+  prometheusSpec:
+    retention: 7d
+nodeExporter:
+  enabled: true
+thanosRuler:
+  enabled: false
+prometheusOperator:
+  createCustomResource: false
+

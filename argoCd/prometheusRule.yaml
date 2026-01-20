@@ -1,0 +1,27 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: argocd-apps-alerts
+  namespace: monitoring
+spec:
+  groups:
+    - name: argocd-apps.rules
+      rules:
+        - alert: ArgoCDAppDown
+          expr: argocd_app_health == 0
+          for: 1m
+          labels:
+            severity: critical
+          annotations:
+            summary: "ArgoCD Application {{ $labels.app }} is down or degraded"
+            description: "Application {{ $labels.app }} in namespace {{ $labels.namespace }} has unhealthy status for more than 1 minute."
+        - alert: ArgoCDAppOutOfSync
+          expr: argocd_app_status == 0
+          for: 2m
+          labels:
+            severity: warning
+          annotations:
+            summary: "ArgoCD Application {{ $labels.app }} is out of sync"
+            description: "Application {{ $labels.app }} in namespace {{ $labels.namespace }} is OutOfSync for more than 2 minutes."
+
+
