@@ -1,0 +1,46 @@
+# ----------------------------
+# Vault Server Configuration
+# ----------------------------
+server:
+  ha:
+    enabled: true
+    replicas: 3
+    raft:
+      enabled: true
+      setNodeId: true
+
+  dataStorage:
+    enabled: true
+    size: 5Gi
+    storageClass: standard
+
+  haStorage:
+    enabled: true
+    storageClass: standard
+
+  telemetry:
+    prometheus:
+      enabled: true
+
+# ----------------------------
+# Monitoring (IMPORTANT)
+# ----------------------------
+serviceMonitor:
+  enabled: true
+  namespace: monitoring
+  interval: 15s
+  scrapeTimeout: 10s
+
+# ❌ MUST be disabled to avoid Prometheus CRD conflicts
+prometheusRules:
+  enabled: false
+
+# ----------------------------
+# Injector
+# ----------------------------
+injector:
+  enabled: true
+
+ui:
+  enabled: true
+

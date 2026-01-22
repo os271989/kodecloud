@@ -1,0 +1,52 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vault
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://helm.releases.hashicorp.com
+    chart: vault
+    targetRevision: 0.26.0
+    helm:
+      values: |
+        server:
+          ha:
+            enabled: false
+            replicas: 3
+            affinity: {}
+            raft:
+              enabled: true
+              setNodeId: true
+            dataStorage:
+              enabled: true
+              size: 5Gi
+              storageClass: standard
+          metrics:
+            enabled: true
+            serviceMonitor:
+              enabled: true
+              namespace: monitoring
+              interval: 15s
+              scrapeTimeout: 10s
+        injector:
+          enabled: true
+        ui:
+          enabled: true
+        service:
+          type: ClusterIP
+          ports:
+            - name: http
+              port: 8200
+              targetPort: 8200
+        tls:
+          enabled: false
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: vault
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
